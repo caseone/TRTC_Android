@@ -89,10 +89,16 @@ public class CustomFrameRender implements TRTCCloudListener.TRTCVideoRenderListe
 
     @Override
     public void onRenderVideoFrame(String userId, int streamType, final TRTCCloudDef.TRTCVideoFrame frame) {
+        Log.i(TAG, "onRenderVideoFrame: " + userId +
+                ",streamType:"+streamType+
+                ","+ frame.bufferType +
+                ",w*h="+frame.width +"x"+frame.height  +
+                ",textureId:"+ (frame.texture==null?"null":frame.texture.textureId));
         if (!userId.equals(mUserId) || mSteamType != streamType) {
             return;
         }
         if (frame.texture != null) {
+            Log.i(TAG, "onRenderVideoFrame: textureId:" + frame.texture.textureId);
             GLES20.glFinish();
         }
         mGLHandler.obtainMessage(MSG_RENDER, frame).sendToTarget();
@@ -123,6 +129,7 @@ public class CustomFrameRender implements TRTCCloudListener.TRTCVideoRenderListe
         if (audioFrame == null) {
             return;
         }
+
         if (mAudioTrack == null) {
             int channelConfig;
             if (audioFrame.channel == 1) {

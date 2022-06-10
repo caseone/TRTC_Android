@@ -166,7 +166,8 @@ public class LocalVideoShareActivity extends TRTCBaseActivity implements View.On
         TRTCCloudDef.TRTCParams mTRTCParams = new TRTCCloudDef.TRTCParams();
         mTRTCParams.sdkAppId = GenerateTestUserSig.SDKAPPID;
         mTRTCParams.userId = userId;
-        mTRTCParams.roomId = Integer.parseInt(roomId);
+//        mTRTCParams.roomId = Integer.parseInt(roomId);
+        mTRTCParams.strRoomId = roomId;
         mTRTCParams.userSig = GenerateTestUserSig.genTestUserSig(mTRTCParams.userId);
         mTRTCParams.role = TRTCCloudDef.TRTCRoleAnchor;
         mTRTCCloud.enterRoom(mTRTCParams, TRTCCloudDef.TRTC_APP_SCENE_LIVE);
@@ -255,7 +256,9 @@ public class LocalVideoShareActivity extends TRTCBaseActivity implements View.On
         CustomFrameRender customRender = new CustomFrameRender(userId, TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG);
         TextureView textureView = new TextureView(renderView.getContext());
         renderView.addVideoView(textureView);
-        mTRTCCloud.setRemoteVideoRenderListener(userId, TRTCCloudDef.TRTC_VIDEO_PIXEL_FORMAT_I420, TRTCCloudDef.TRTC_VIDEO_BUFFER_TYPE_BYTE_ARRAY, customRender);
+        mTRTCCloud.setRemoteVideoRenderListener(userId, TRTCCloudDef.TRTC_VIDEO_PIXEL_FORMAT_Texture_2D, TRTCCloudDef.TRTC_VIDEO_BUFFER_TYPE_TEXTURE, customRender);
+//        mTRTCCloud.setRemoteVideoRenderListener(userId, TRTCCloudDef.TRTC_VIDEO_PIXEL_FORMAT_I420, TRTCCloudDef.TRTC_VIDEO_BUFFER_TYPE_BYTE_ARRAY, customRender);
+
         customRender.start(textureView);
         mCustomRemoteRenderMap.put(userId, customRender);
         mTRTCCloud.startRemoteView(userId, TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG,null);

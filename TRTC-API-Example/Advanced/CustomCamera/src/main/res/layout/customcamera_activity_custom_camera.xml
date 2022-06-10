@@ -63,7 +63,7 @@
                 android:layout_height="30dp"
                 android:background="@drawable/common_edit_bg"
                 android:paddingLeft="5dp"
-                android:text="1256732" />
+                android:text="100861" />
 
         </LinearLayout>
 
